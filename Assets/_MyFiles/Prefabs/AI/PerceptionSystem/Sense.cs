@@ -19,7 +19,7 @@ public abstract class Sense : ScriptableObject
         private set;
     }
 
-    public void Init(MonoBehaviour owner)
+    public virtual void Init(MonoBehaviour owner)
     {
         Owner = owner;
     }
@@ -64,8 +64,8 @@ public abstract class Sense : ScriptableObject
     private IEnumerator ForgettingCoroutine(PerceptionStimuli stimuli)
     {
         yield return new WaitForSeconds(forgetTime);
-        currentForgettingCoroutines.Remove(stimuli); //we have forgot it already, coroutine is done.
         onPerceptionUpdated.Invoke(stimuli, false);
+        currentForgettingCoroutines.Remove(stimuli); //we have forgot it already, coroutine is done.
     }
 
     private bool IsStimuliSensed(PerceptionStimuli stimuli)

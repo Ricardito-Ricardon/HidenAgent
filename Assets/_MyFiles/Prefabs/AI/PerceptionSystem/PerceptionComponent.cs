@@ -40,6 +40,7 @@ public class PerceptionComponent : MonoBehaviour
         }
         else
         {
+            if(node != null)
             perceivedStimulis.Remove(node);
         }
 

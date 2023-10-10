@@ -6,7 +6,7 @@ public class HealthComponent : MonoBehaviour
 {
     public delegate void OnHealthChanged(float currenthHealth, float delta, float maxHealth);
     public delegate void OnHealthEmpty(float delta, float maxHealth);
-    public delegate void OnTakeDamage(float currentHealth, float delta, float maxHealth);
+    public delegate void OnTakeDamage(float currentHealth, float delta, float maxHealth, GameObject instigator);
 
     public event OnHealthChanged onHealthChanged;
     public event OnHealthEmpty onHealthEmpty;
@@ -15,7 +15,7 @@ public class HealthComponent : MonoBehaviour
     [SerializeField] float currentHealth;
     [SerializeField] float maxHealth;
 
-    public void ChangeHealth(float amt)
+    public void ChangeHealth(float amt, GameObject instigator)
     {
         if(amt == 0 || currentHealth == 0)
         {
@@ -27,7 +27,7 @@ public class HealthComponent : MonoBehaviour
         onHealthChanged?.Invoke(currentHealth, amt, maxHealth);
         if(amt < 0)
         {
-            onTakeDamage.Invoke(currentHealth, amt, maxHealth);
+            onTakeDamage.Invoke(currentHealth, amt, maxHealth, instigator);
         }
         if(currentHealth == 0)
         {
